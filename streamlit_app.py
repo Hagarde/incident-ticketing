@@ -73,7 +73,7 @@ if st.button("Créer l'incident et la localisation"):
         location_id = f"location--{uuid.uuid4()}"
         location = Location(
             id=location_id,
-            name=ville_choisie["Nom_de_la_commune"],
+            name=ville_choisie["Nom_de_la_commune"].lower(),
             description=f"Code postal : {ville_choisie['Code_postal']}",
             country="France"
         )
