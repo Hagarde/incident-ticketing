@@ -24,7 +24,7 @@ def load_villes():
 df_villes = load_villes()
 
 # --- Formulaire ---
-st.title("Création d'incident OpenCTI avec localisation")
+st.title("Base de données des iches contre les menaces contre XXX")
 
 titre = st.text_input("Titre (court)")
 categorie = st.selectbox("Catégorie", ["Question", "Menace", "Fuite d'information", "Acte de malveillance"])
