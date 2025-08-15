@@ -24,12 +24,12 @@ def load_villes():
 df_villes = load_villes()
 
 # --- Formulaire ---
-st.title("Base de données des iches contre les menaces contre XXX")
+st.title("👮Base de données des criblage des menaces contre XXX👮")
 
-titre = st.text_input("Titre (court)")
+titre = st.text_input("Titre")
 categorie = st.selectbox("Catégorie", ["Question", "Menace", "Fuite d'information", "Acte de malveillance"])
-description = st.text_area("Description (longue)")
-interlocuteur = st.text_input("Interlocuteur")
+description = st.text_area("Description de l'évènement")
+interlocuteur = st.text_input("Interlocuteur identifié")
 
 # Recherche ville
 search = st.text_input("Tapez le début de la ville ou un code postal")
@@ -63,7 +63,7 @@ if st.button("Créer l'incident et la localisation"):
         incident = Incident(
             id=incident_id,
             name=titre,
-            description=description,
+            description=description + "de la part de " + interlocuteur,
             created=dt.now(datetime.timezone.utc),
             modified=dt.now(datetime.timezone.utc),
             labels=[categorie],
