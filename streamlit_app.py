@@ -27,7 +27,7 @@ df_villes = load_villes()
 st.title("Création d'incident OpenCTI avec localisation")
 
 titre = st.text_input("Titre (court)")
-categorie = st.selectbox("Catégorie", ["Cyber", "Physique", "Organisationnel"])
+categorie = st.selectbox("Catégorie", ["Question", "Menace", "Fuite d'information", "Acte de malveillance"])
 description = st.text_area("Description (longue)")
 interlocuteur = st.text_input("Interlocuteur")
 
