@@ -3,17 +3,22 @@ import pandas as pd
 from stix2 import Incident, Location, Relationship, Bundle
 from pycti import OpenCTIApiClient
 import uuid
-from datetime import datetime
+import datetime
+from datetime import datetime as dt
 
 # --- Secrets depuis Streamlit Cloud ---
-OPENCTI_API_URL = st.secrets["OPENCTI_API_URL"]
-OPENCTI_API_TOKEN = st.secrets["OPENCTI_API_TOKEN"]
+OPENCTI_API_URL = st.secrets["OPENCTI_URL"]
+OPENCTI_API_TOKEN = st.secrets["OPENCTI_TOKEN"]
 client = OpenCTIApiClient(OPENCTI_API_URL, OPENCTI_API_TOKEN)
 
 # --- Charger les villes en cache ---
 @st.cache_data
 def load_villes():
-    df = pd.read_csv("./019HexaSmal.csv", sep=";", encoding="utf-8")
+    try:
+        df = pd.read_csv("./019HexaSmal.csv", sep=";", encoding="utf-8")
+    except UnicodeDecodeError:
+        df = pd.read_csv("./019HexaSmal.csv", sep=";", encoding="latin-1")
+
     return df
 
 df_villes = load_villes()
@@ -59,8 +64,8 @@ if st.button("Créer l'incident et la localisation"):
             id=incident_id,
             name=titre,
             description=description,
-            created=datetime.now(datetime.timezone.utc),
-            modified=datetime.now(datetime.timezone.utc),
+            created=dt.now(datetime.timezone.utc),
+            modified=dt.now(datetime.timezone.utc),
             labels=[categorie],
         )
 
@@ -80,8 +85,8 @@ if st.button("Créer l'incident et la localisation"):
             relationship_type="located-at",
             source_ref=incident_id,
             target_ref=location_id,
-            created=datetime.now(datetime.timezone.utc),
-            modified=datetime.now(datetime.timezone.utc)
+            created=dt.now(datetime.timezone.utc),
+            modified=dt.now(datetime.timezone.utc)
         )
 
         # Bundle
